@@ -71,7 +71,7 @@ export default function ProgramEditor() {
             </div>
           </div>
        <div className="flex items-center gap-3">
-      <button
+     <button
           onClick={() => setDarkMode(!darkMode)}
           className={`p-2.5 rounded-xl transition-all duration-300 ${darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-100 hover:bg-gray-200"} focus:outline-none focus:ring-2 focus:ring-[#00695C]`}
           aria-label="تبديل الوضع الليلي"
