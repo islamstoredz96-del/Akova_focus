@@ -1,4 +1,3 @@
-```jsx
 import React, { useState } from "react";
 
 export default function Programs() {
@@ -116,95 +115,126 @@ export default function Programs() {
             </button>
             <button
               onClick={handleCreate}
-              className="px-5 py-2.5 bg-[#00695C] hover:bg-[#00564B] text-white rounded-lg font-medium transition-all duration-200 shadow-lg shadow-[#00695C]/20 flex items-center gap-2"
+              className="px-5 py-2.5 bg-[#00695C] hover:bg-[#00564B] text-white rounded-lg font-medium transition-colors duration-200"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              برنامج جديد
+              إضافة برنامج جديد
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Body */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: "إجمالي البرامج", value: programs.length, icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
-            { label: "البرامج النشطة", value: programs.filter(p => p.status === "نشط").length, icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
-            { label: "إجمالي المشاركين", value: programs.reduce((acc, p) => acc + p.participants, 0), icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" },
-            { label: "برامج متوقفة", value: programs.filter(p => p.status === "متوقف").length, icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" },
-          ].map((stat, idx) => (
-            <div key={idx} className={`rounded-2xl p-5 shadow-sm transition-all duration-300 hover:shadow-md ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"} border`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{stat.label}</p>
-                  <p className="text-3xl font-bold mt-2 text-[#00695C]">{stat.value}</p>
-                </div>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${darkMode ? "bg-gray-800" : "bg-[#00695C]/10"}`}>
-                  <svg className="w-6 h-6 text-[#00695C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={stat.icon} />
-                  </svg>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {programs.map((program) => (
+            <div
+              key={program.id}
+              className={`p-6 rounded-2xl border transition-all duration-200 ${
+                activeProgramId === program.id ? "ring-2 ring-[#00695C]" : ""
+              } ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100 shadow-sm"}`}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="font-bold text-lg">{program.name}</h3>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    program.status === "نشط"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-amber-100 text-amber-700"
+                  }`}
+                >
+                  {program.status}
+                </span>
+              </div>
+              <p className={`text-sm mb-6 ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+                {program.description}
+              </p>
+              <div className="flex justify-between items-center text-xs text-gray-500 border-t pt-4 border-gray-100 dark:border-gray-800">
+                <span>المشاركون: {program.participants}</span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(program)}
+                    className="text-blue-600 hover:underline"
+                  >
+                    تعديل
+                  </button>
+                  <button
+                    onClick={() => handleDelete(program.id)}
+                    className="text-rose-600 hover:underline"
+                  >
+                    حذف
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
+      </main>
 
-        {/* Programs List */}
-        <div className={`rounded-2xl shadow-sm ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"} border overflow-hidden`}>
-          <div className={`px-6 py-4 border-b ${darkMode ? "border-gray-800" : "border-gray-200"} flex items-center justify-between`}>
-            <h2 className="text-lg font-semibold">قائمة البرامج</h2>
-            <div className={`flex items-center gap-2 text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-              <span>البرنامج النشط:</span>
-              <span className="font-medium text-[#00695C]">
-                {programs.find(p => p.id === activeProgramId)?.name || "لا يوجد"}
-              </span>
-            </div>
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className={`w-full max-w-md p-6 rounded-2xl ${darkMode ? "bg-gray-900" : "bg-white"}`}>
+            <h2 className="text-xl font-bold mb-4">
+              {editingProgram ? "تعديل البرنامج" : "إضافة برنامج جديد"}
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">اسم البرنامج</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className={`w-full p-2.5 rounded-lg border ${
+                    darkMode ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200"
+                  }`}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">الوصف</label>
+                <textarea
+                  required
+                  rows={3}
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  className={`w-full p-2.5 rounded-lg border ${
+                    darkMode ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200"
+                  }`}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">الحالة</label>
+                <select
+                  value={formData.status}
+                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                  className={`w-full p-2.5 rounded-lg border ${
+                    darkMode ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200"
+                  }`}
+                >
+                  <option value="نشط">نشط</option>
+                  <option value="متوقف">متوقف</option>
+                </select>
+              </div>
+              <div className="flex justify-end gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700"
+                >
+                  إلغاء
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#00695C] text-white rounded-lg hover:bg-[#00564B]"
+                >
+                  حفظ
+                </button>
+              </div>
+            </form>
           </div>
-
-          {programs.length === 0 ? (
-            <div className="py-16 text-center">
-              <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <p className="mt-4 text-gray-500">لا توجد برامج حالياً</p>
-              <button onClick={handleCreate} className="mt-4 px-4 py-2 bg-[#00695C] text-white rounded-lg hover:bg-[#00564B] transition-colors">
-                إنشاء برنامج جديد
-              </button>
-            </div>
-          ) : (
-            <ul className="divide-y divide-gray-200 dark:divide-gray-800">
-              {programs.map((program) => (
-                <li key={program.id} className={`px-6 py-5 transition-colors ${activeProgramId === program.id ? (darkMode ? "bg-[#00695C]/10" : "bg-[#00695C]/5") : ""}`}>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-lg font-semibold truncate">{program.name}</h3>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${program.status === "نشط" ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"}`}>
-                          {program.status}
-                        </span>
-                        {activeProgramId === program.id && (
-                          <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#00695C] text-white">
-                            البرنامج النشط
-                          </span>
-                        )}
-                      </div>
-                      <p className={`mt-2 text-sm line-clamp-2 ${darkMode ? "text-gray-400" : "text-gray-600"}`}>{program.description}</p>
-                      <div className={`mt-3 flex items-center gap-6 text-xs ${darkMode ? "text-gray-500" : "text-gray-500"}`}>
-                        <span className="flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                          </svg>
-                          {program.participants} مشارك
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          {new Date(program.createdAt).toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" })}
-                        </span>
-                      </div>
+        </div>
+      )}
+    </div>
+  );
+}
                     
