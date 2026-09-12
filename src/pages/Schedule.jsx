@@ -1,6 +1,3 @@
-
-
-```jsx
 import { useState, useEffect } from "react";
 
 const scheduleData = [
@@ -119,4 +116,26 @@ const typeIcons = {
   )
 };
 
-export default function Schedule() { return null; }
+export default function Schedule() {
+  const [schedules] = useState(scheduleData);
+
+  return (
+    <div className="p-4 space-y-4">
+      <h1 className="text-2xl font-bold">الجدول الزمني</h1>
+      <div className="grid gap-3">
+        {schedules.map((item) => (
+          <div key={item.id} className="p-4 border rounded-lg shadow-sm bg-white flex items-center justify-between">
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="text-blue-600">{typeIcons[item.type] || null}</div>
+              <div>
+                <h3 className="font-semibold">{item.titleAr || item.title}</h3>
+                <p className="text-sm text-gray-500">{item.time} - {item.endTime} | {item.location}</p>
+              </div>
+            </div>
+            <span className="px-2 py-1 text-xs rounded border capitalize">{item.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
