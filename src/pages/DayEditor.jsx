@@ -285,9 +285,9 @@ export default function DayEditor() {
   const progressPercent = totalTasks > 0 ? (completedCount / totalTasks) * 100 : 0;
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+   <div className={min-h-screen transition-colors duration-300 ${darkMode ? "bg-gray-900" : "bg-gray-50"}}>
       {/* Header */}
-      <header className={`sticky top-0 z-40 backdrop-blur-lg ${darkMode ? "bg-gray-900/90 border-gray-800" : "bg-white/90 border-gray-200"} border-b`}>
+      <header className={sticky top-0 z-40 backdrop-blur-lg ${darkMode ? "bg-gray-900/90 border-gray-800" : "bg-white/90 border-gray-200"} border-b}>
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
