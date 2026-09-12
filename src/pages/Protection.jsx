@@ -98,11 +98,12 @@ export default function Protection() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {protectionLevels.map((level) => (
-              <button
-                key={level.id}
-                className={`relative p-5 rounded-2xl border-2 text-right transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
-                  level.selected ? "border-transparent shadow-lg" : "border-gray-200 dark:border-gray-700"
-                } ${level.bg}`}
+             <button
+          key={level.id}
+          className={`relative p-5 rounded-2xl border-2 text-right transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
+            level.selected ? "border-transparent shadow-lg" : "border-gray-200 dark:border-gray-700"
+          } ${level.bg}`}
+        >
                 style={level.selected ? { borderColor: "#00695C", boxShadow: "0 8px 24px rgba(0,105,92,0.15)" } : {}}
               >
                 {level.selected && (
