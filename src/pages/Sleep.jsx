@@ -57,8 +57,7 @@ export default function SleepPage() {
     const hours = Math.floor(duration / 60);
     const mins = duration % 60;
 
-    return `${hours}h ${mins}m`;
-  };
+return `${hours}h${mins}m`;  };
 
   const getSleepQuality = () => {
     const [bedHour] = bedtime.split(":").map(Number);
