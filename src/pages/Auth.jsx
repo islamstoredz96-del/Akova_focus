@@ -63,8 +63,8 @@ export default function AuthenticationPage() {
       return;
     }
     // Simulate sending verification email
-    setMessage(`Verification code sent to ${email}. (simulation)`);
-    setScreen("verify");
+setMessage(`Verification code sent to ${email}. (simulation)`);
+setScreen("verify");
   };
 
   const handleVerifySubmit = (e) => {
